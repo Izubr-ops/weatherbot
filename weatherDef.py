@@ -19,11 +19,11 @@ def weather(place):
     limit = 1
     hours = False
     extra = False
-    url = f"https://api.weather.yandex.ru/v2/forecast?lat={lat}&lon={lon}&[lang={lang}]&[limit={limit}]&[hours={hours}]&[extra={extra}]"
+    url = f"https://api.weather.yandex.ru/v2/informers?lat={lat}&lon={lon}&[lang={lang}]"
     r = requests.get(url, headers={"X-Yandex-API-Key": WEATHER_YAPI})
     response = r.json()
-    today = response["forecasts"][0]
-    todayShortWEth = today["parts"]["day"]
+    today = response["forecast"]
+    todayShortWEth = today["parts"][0]
     weather = f'Погода в {name}:\n' \
               f'Дата {today["date"]}\n'\
               f'Восход {today["sunrise"]}\n'\
@@ -31,7 +31,7 @@ def weather(place):
               f'Минимальная температура {todayShortWEth["temp_min"]}\n'\
               f'максимальная температура {todayShortWEth["temp_max"]}\n'\
               f'Ощущается как {todayShortWEth["feels_like"]}\n'\
-              f'Что за окном {todayShortWEth["condition"]}\n'
+              f'за окном {todayShortWEth["condition"]}\n'
     return weather
 
 
